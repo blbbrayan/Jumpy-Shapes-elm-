@@ -1,0 +1,18 @@
+body{
+    background: #121212 !important;
+}
+.game >div{
+    position: inherit !important;
+}
+canvas{
+    transition: transform .5s;
+    margin-left: calc(50% - 400px) !important;
+    margin-top: calc(50% - 750px) !important;
+}
+canvas:hover{
+    cursor: pointer;
+}
+canvas:active{
+    -webkit-transform: rotate(3deg);
+    transform:rotate(3deg);
+}
