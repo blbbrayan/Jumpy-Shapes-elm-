@@ -1,4 +1,4 @@
-# Jumpy-Shapes-elm-
+# Jumpy Shapes
 A project built with elm.
 
 ## How to run
