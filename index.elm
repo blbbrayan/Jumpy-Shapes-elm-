@@ -1,6 +1,6 @@
 import ByrdModal exposing (..)
 import GamePipe exposing (..)
-import GameTypes exposing (Model, Seed)
+import GameTypes exposing (..)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
@@ -57,6 +57,13 @@ checkDeath model =
     else
         model
 
+isInBounds : GameObject -> Bool
+isInBounds pipe =
+    if pipe.bounds.x < 0 then
+        False
+    else
+        True
+
 spawn : Model -> Model
 spawn model =
     if model.spawnTimer > 900 then
@@ -80,7 +87,7 @@ update msg model =
 
 checkInterval model =
     if model.interval >= round 10 then
-        { model | player = moveGO model.player, interval = 0, menu = (byrdModalTick model.menu), pipes = (List.map moveGO model.pipes), seed = checkSeed model.seed }
+        { model | player = moveGO model.player, interval = 0, menu = (byrdModalTick model.menu), pipes = (List.filter isInBounds (List.map moveGO model.pipes)), seed = checkSeed model.seed }
     else
        model
     |> movePlayer
@@ -104,7 +111,7 @@ view model =
     in
         div [ onClick Jump, (attribute "class" "game") ]
         (Utils.init <|
-        [ h1 [ attribute "style" "color: white;" ] [ Html.text ( toString (model.seed.seed) ) ]
+        [ h1 [ attribute "style" "color: white;" ] [ Html.text ( "Pipes: " ++ ( toString ( List.length model.pipes ) ) ) ]
         , collage gameWidth gameHeight
               (List.append
                   [ rect gameWidth gameHeight
