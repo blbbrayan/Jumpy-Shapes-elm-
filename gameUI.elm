@@ -32,6 +32,9 @@ byrdModalTick model =
 byrdModalClose : ByrdModalModel -> ByrdModalModel
 byrdModalClose model = { model | death = " death" }
 
+byrdModalOpen : ByrdModalModel -> ByrdModalModel
+byrdModalOpen model = { model | active = True }
+
 byrdModalDeath model =
     if ((String.length model.death) > 0) then
             if model.interval > 800 then
@@ -49,12 +52,9 @@ byrdModal modal close =
                   , hr [] []
                   , div [ attribute "class" "center" ]
                       [ p [] [ text modal.content ]
-                      , p [] [ text ( toString modal.interval ) ]
-                      , p [] [ text ( toString modal.active ) ]
-                      , p [] [ text ( toString modal.death ) ]
                       ]
                   , hr [] []
-                  , button [ attribute "class" "flat-btn primary", onClick close ] [ text "Close" ]
+                  , button [ attribute "class" "flat-btn primary", onClick close ] [ text "Play" ]
                   ]
               ]
     else
