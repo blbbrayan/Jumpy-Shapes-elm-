@@ -1,4 +1,4 @@
-module GameUI exposing (..)
+module ByrdModal exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (attribute)

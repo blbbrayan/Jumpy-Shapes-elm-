@@ -2,20 +2,7 @@ module GameObject exposing (..)
 
 import Collage exposing (..)
 import Color exposing (..)
-
-type alias Bounds =
-    { x: Float
-    , y: Float
-    , width: Float
-    , height: Float
-    }
-
-type alias GameObject =
-    { bounds: Bounds
-    , color: Color
-    , xVel: Float
-    , yVel: Float
-    }
+import GameTypes exposing (GameObject)
 
 gameObject: Float -> Float -> Float -> Float -> Color -> GameObject
 gameObject x y width height color =

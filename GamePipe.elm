@@ -1,9 +1,8 @@
-module Enemy exposing (..)
+module GamePipe exposing (..)
 
 import Color
 import GameObject exposing (..)
-import Model exposing (Model)
-import Seed exposing (Seed)
+import GameTypes exposing (..)
 
 setSpeed : GameObject -> GameObject
 setSpeed gameObject = { gameObject | xVel = -10}

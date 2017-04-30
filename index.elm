@@ -1,5 +1,4 @@
-module Main exposing (..)
-
+import GameTypes exposing (Model, Seed)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
@@ -9,10 +8,6 @@ import GameObject exposing (..)
 import Color as Color
 import Element as Element
 import Time exposing (..)
-import GameUI exposing (..)
-import Enemy exposing (..)
-import Model exposing (Model)
-import Seed exposing (Seed)
 
 main =
     Html.program
@@ -33,8 +28,6 @@ subscriptions model =
     Time.every Time.millisecond Tick
 
 --model
-
-
 
 model : Model
 model =
