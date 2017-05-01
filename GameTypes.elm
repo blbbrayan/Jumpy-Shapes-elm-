@@ -24,6 +24,7 @@ type alias Model =
     , spawnTimer: Int
     , menu: ByrdModalModel
     , seed: Seed
+    , running: Bool
     }
 
 type alias Seed =

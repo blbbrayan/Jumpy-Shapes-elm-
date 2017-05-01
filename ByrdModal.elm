@@ -24,7 +24,7 @@ byrdModalModel title content active =
 byrdModalTick : ByrdModalModel -> ByrdModalModel
 byrdModalTick model =
     if ( (String.length model.death) > 0 ) then
-        { model | interval = model.interval + 10 }
+        { model | interval = model.interval + 1 }
         |> byrdModalDeath
     else
         model
@@ -33,7 +33,7 @@ byrdModalClose : ByrdModalModel -> ByrdModalModel
 byrdModalClose model = { model | death = " death" }
 
 byrdModalOpen : ByrdModalModel -> ByrdModalModel
-byrdModalOpen model = { model | active = True }
+byrdModalOpen model = { model | active = True, death = "", interval = 0 }
 
 byrdModalDeath model =
     if ((String.length model.death) > 0) then

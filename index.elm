@@ -37,8 +37,9 @@ model =
     , pipes = []
     , interval = 0
     , spawnTimer = 0
-    , menu = byrdModalModel "Jumpy Shapes" "Welcome to Jumpy Shapes the demo! Made \"Purely\" with elm" False
+    , menu = byrdModalModel "Jumpy Shapes" "Welcome to Jumpy Shapes the demo! Made \"Purely\" with elm" True
     , seed = randomSeed
+    , running = False
     }
 
 movePlayer : Model -> Model
@@ -53,13 +54,13 @@ resetPlayer player = { player | bounds = { x = 100, y = 20, width = 50, height =
 checkDeath : Model -> Model
 checkDeath model =
     if model.player.bounds.y > 550 then
-        { model | menu = byrdModalOpen model.menu }
+        { model | menu = byrdModalOpen model.menu, running = False, pipes = [] }
     else
         model
 
 isInBounds : GameObject -> Bool
 isInBounds pipe =
-    if pipe.bounds.x < 0 then
+    if pipe.bounds.x < -101 then
         False
     else
         True
@@ -80,14 +81,17 @@ update msg model =
         Jump ->
             { model | player = accelerate model.player 0 -10 }
         Tick delta ->
-            { model | interval = model.interval + 1, spawnTimer = model.spawnTimer + 1}
-            |> checkInterval
+            if model.running then
+                { model | interval = model.interval + 1, spawnTimer = model.spawnTimer + 1, menu = (byrdModalTick model.menu)}
+                |> checkInterval
+            else
+                { model | menu = (byrdModalTick model.menu) }
         CloseModal ->
-            { model | menu = byrdModalClose model.menu, player =  resetPlayer model.player}
+            { model | menu = byrdModalClose model.menu, player = resetPlayer model.player, running = True}
 
 checkInterval model =
     if model.interval >= round 10 then
-        { model | player = moveGO model.player, interval = 0, menu = (byrdModalTick model.menu), pipes = (List.filter isInBounds (List.map moveGO model.pipes)), seed = checkSeed model.seed }
+        { model | player = moveGO model.player, interval = 0, pipes = (List.filter isInBounds (List.map moveGO model.pipes)), seed = checkSeed model.seed }
     else
        model
     |> movePlayer
@@ -111,7 +115,7 @@ view model =
     in
         div [ onClick Jump, (attribute "class" "game") ]
         (Utils.init <|
-        [ h1 [ attribute "style" "color: white;" ] [ Html.text ( "Pipes: " ++ ( toString ( List.length model.pipes ) ) ) ]
+        [ h1 [ attribute "style" "color: white;" ] [ Html.text ( "Test: " ++ ( toString model.menu.active ) ) ]
         , collage gameWidth gameHeight
               (List.append
                   [ rect gameWidth gameHeight

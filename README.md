@@ -8,11 +8,11 @@ A project built with elm.
 * go to http://localhost:8000
 
 ## Todo
-* start / stop state
 * collision detection
 * menu
 * score
 * pipe length seed
 
 ## Recently Completed
+* start / stop state
 * remove the game objects once they are no longer on the screen. ( will reduce long session lag )
